@@ -12,11 +12,11 @@ Unit::Unit(double attack, double defense, int hitpoints,
 				  isFortified(isFortified),
 				  skill(skill)
 {
-  adjustAttack(getVeteranSkillModifier());
+  adjustAttack(getVeteranSkillModifier()); 
 }
 
 void Unit::adjustAttack(double percentage)
-{ attack += (attack * percentage); }
+{ attack += attack + (attack * percentage); }
 
 void Unit::adjustDefense(double percentage)
 { defense += (defense * percentage); }
@@ -53,3 +53,9 @@ string Unit::getName()
 
 void Unit::resetHitpoints()
 { hitpoints = defaultHitpoints; }
+
+void Unit::setExperience(VeteranStatus rank)
+{
+  skill = rank;
+  adjustAttack(getVeteranSkillModifier());
+}

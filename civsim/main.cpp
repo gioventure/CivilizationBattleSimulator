@@ -11,6 +11,8 @@ void readTroops(vector<Unit> &allUnits);
 void readTerrain(vector<Terrain> &allUnits);
 int combat(Unit attacker, Unit defender); //add terrain later!
 int promptUnit(vector<Unit> allUnits, bool attacker);
+void raiseRank(Unit attacker);
+
 
 /**
    Terrains have all been implemented, but I had not
@@ -27,6 +29,7 @@ int main()
   readTerrain(allTerrain);
   
   int attackUnitID = promptUnit(allUnits, true);
+  raiseRank(allUnits[attackUnitID]);
   int defendUnitID = promptUnit(allUnits, false);
   int victories = combat(allUnits[attackUnitID],
 		   allUnitsDefender[defendUnitID]);
@@ -124,4 +127,33 @@ int promptUnit(vector<Unit> allUnits, bool attacker)
       cin >> choice;
     }
   return choice - 1;
+}
+
+void raiseRank(Unit attacker)
+{
+  int choice;
+  
+  cout << "Choose unit rank:\n" <<
+    "1. No experience\n2. Veteran\n" <<
+    "3. Hardened\n 4. Elite\n";
+  cin >> choice;
+  while(choice < 1 || choice > 4)
+    {
+      cout << "Choose unit rank:\n" <<
+	"1. No experience\n2. Veteran\n" <<
+	"3. Hardened\n4.Elite\n";
+      cin >> choice;
+    }
+  switch(choice)
+    {
+    case 2:
+      attacker.setExperience(VETERAN);
+      break;
+    case 3:
+      attacker.setExperience(HARDENED);
+      break;
+    case 4:
+      attacker.setExperience(ELITE);
+      break;      
+    } 
 }

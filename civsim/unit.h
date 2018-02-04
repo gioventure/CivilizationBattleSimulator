@@ -32,6 +32,7 @@ class Unit
   int getFirepower();
   string getName();
   void resetHitpoints();
+  void setExperience(VeteranStatus rank);
   
   
 };
