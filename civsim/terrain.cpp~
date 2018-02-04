@@ -1,0 +1,13 @@
+#include "Terrain.h"
+
+Terrain::Terrain(string name, double defenseBonus, bool hasRiver,
+		 bool hasCityWalls) : name(name),
+				      defenseBonus(defenseBonus),
+				      hasRiver(hasRiver),
+				      hasCityWalls(hasCityWalls)
+{
+
+}	 
+
+void Terrain::adjustDefense(double percentage)
+{ defenseBonus += percentage; }

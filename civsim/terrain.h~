@@ -1,0 +1,22 @@
+#ifndef TERRAIN_H
+#define TERRAIN_H
+
+#include <string>
+using namespace std;
+
+class Terrain
+{
+ private:
+  string name;
+  double defenseBonus;
+  bool hasRiver;
+  bool hasCityWalls;
+  enum StructureType {NONE, CITY, FORTRESS};
+
+ public:
+  Terrain(string name, double defenseBonus, bool hasRiver,
+	  bool hasCityWalls);
+  void adjustDefense(double percentage);
+};
+
+#endif
