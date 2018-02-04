@@ -1,4 +1,0 @@
-objects = main.o Unit.o
-
-civsim : $(objects)
-	g++ -o civsim $(objects)
