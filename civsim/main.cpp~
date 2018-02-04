@@ -1,9 +1,0 @@
-#include <iostream>
-#include "Unit.h"
-
-int main()
-{
-  Unit test (4, 1, 20, 1, "Infantry", false);
-  cout << test.getHitpoints() << endl;
-  return 0;
-}
