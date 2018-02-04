@@ -12,6 +12,7 @@ class Unit
   double attack;
   double defense;
   int hitpoints;
+  int defaultHitpoints;
   int firepower;
   string name;
   bool isFortified;
@@ -27,6 +28,10 @@ class Unit
   int getHitpoints();
   double getAttack();
   double getDefense();
+  void damageHealth(int enemyFirepower);
+  int getFirepower();
+  string getName();
+  void resetHitpoints();
   
   
 };

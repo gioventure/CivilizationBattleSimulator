@@ -9,15 +9,31 @@
 
 void readTroops(vector<Unit> &allUnits);
 void readTerrain(vector<Terrain> &allUnits);
-bool combat(Unit attacker, Unit defender); //add terrain later!
+int combat(Unit attacker, Unit defender); //add terrain later!
+int promptUnit(vector<Unit> allUnits, bool attacker);
 
+/**
+   Terrains have all been implemented, but I had not
+   enough time to make them influence the units and 
+   affect the battle
+*/
 int main()
 {
+  srand((unsigned)time(0));  
   vector<Unit> allUnits;
-  vector<Terrain> allTerrain;
   readTroops(allUnits);
+  vector<Unit> allUnitsDefender(allUnits);
+  vector<Terrain> allTerrain;
   readTerrain(allTerrain);
-  combat(allUnits[1], allUnits[0]);
+  
+  int attackUnitID = promptUnit(allUnits, true);
+  int defendUnitID = promptUnit(allUnits, false);
+  int victories = combat(allUnits[attackUnitID],
+		   allUnitsDefender[defendUnitID]);
+  cout << "Out of 100 simulated battles, the attacker won " <<
+    victories << " battles\n" << endl;
+  
+  
   return 0;
 }
 
@@ -63,10 +79,49 @@ void readTerrain(vector<Terrain> &allTerrain)
   inputFile.close();
 }
 
-bool combat(Unit attacker, Unit defender)
+int combat(Unit attacker, Unit defender)
 {
-  srand((unsigned)time(0));
+  //  cout << "attacker strength: " << attacker.getAttack() << endl;
+  //  cout << "defender strength: " << defender.getDefense() << endl;
   int i;
-  i = (rand()%6) + 1;
-  cout << i << endl;
+  int wins = 0;
+  for(int j = 0; j < 100; j++)
+    {
+  do
+    {
+      i = (rand()%static_cast<int>(attacker.getAttack() + defender.getDefense())) + 1;
+      
+      (i > attacker.getAttack()) ? attacker.damageHealth(defender.getFirepower()) :
+	defender.damageHealth(attacker.getFirepower());
+    }while( attacker.getHitpoints() > 0 &&
+	    defender.getHitpoints() > 0);
+  if(attacker.getHitpoints() > 0) wins++;
+  attacker.resetHitpoints();
+  defender.resetHitpoints();
+    }
+  
+
+ 
+  
+  
+  return wins;
+    
+}
+
+int promptUnit(vector<Unit> allUnits, bool attacker)
+{
+
+  
+  if(attacker)
+  for(int i = 0; i < allUnits.size(); i++)
+    cout << (i + 1) << ". " << allUnits[i].getName() << endl;
+  cout << "Choose the " << ((attacker) ? "attacking unit\n" : "defending unit\n");
+  int choice;
+  cin >> choice;
+  while(choice <= 0 || choice > 28)
+    {
+      cout << "Choose the " << ((attacker) ? "attacking unit\n" : "defending unit\n");
+      cin >> choice;
+    }
+  return choice - 1;
 }

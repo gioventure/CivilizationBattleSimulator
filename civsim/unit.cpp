@@ -6,6 +6,7 @@ Unit::Unit(double attack, double defense, int hitpoints,
 	   VeteranStatus skill) : attack(attack),
 				  defense(defense),
 				  hitpoints(hitpoints),
+				  defaultHitpoints(hitpoints),
 				  firepower(firepower),
 				  name(name),
 				  isFortified(isFortified),
@@ -40,3 +41,15 @@ double Unit::getVeteranSkillModifier()
 double Unit::getAttack() { return attack; }
 
 double Unit::getDefense() { return defense; }
+
+void Unit::damageHealth(int enemyFirepower)
+{ hitpoints -= enemyFirepower; }
+
+int Unit::getFirepower()
+{ return firepower; }
+
+string Unit::getName()
+{ return name; }
+
+void Unit::resetHitpoints()
+{ hitpoints = defaultHitpoints; }
